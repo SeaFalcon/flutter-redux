@@ -8,5 +8,6 @@ AppState appReducer(AppState state, action) {
   return AppState(
     colorState: colorReducer(state.colorState, action),
     counterState: counterReducer(state.counterState, action),
+    postsState: postsReducer(state.postsState, action),
   );
 }
