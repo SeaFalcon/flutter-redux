@@ -12,19 +12,8 @@ Map changeColorState = {
 };
 
 ColorState colorReducer(ColorState colorState, dynamic action) {
-  print(colorState);
-  print(action);
-
   if (action is ChangeColorAction) {
     return changeColorState[colorState.color](colorState);
-
-    // if (colorState.color == Colors.red) {
-    //   return colorState.copyWith(color: Colors.green);
-    // } else if (colorState.color == Colors.green) {
-    //   return colorState.copyWith(color: Colors.blue);
-    // } else if (colorState.color == Colors.blue) {
-    //   return colorState.copyWith(color: Colors.red);
-    // }
   }
   return colorState;
 }

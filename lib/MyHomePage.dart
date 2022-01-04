@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:flutter_redux_colors_numbers/actions/actions.dart';
+import 'package:flutter_redux_colors_numbers/pages/posts_page.dart';
 import 'package:flutter_redux_colors_numbers/states/states.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -34,7 +35,17 @@ class MyHomePage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    print('PostsPage!!!');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PostsPage(
+                          appBarColor: Colors.blueAccent,
+                        ),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Posts',
                     style: TextStyle(color: Colors.white, fontSize: 18),

@@ -20,8 +20,6 @@ Map changeCounterState = {
 };
 
 CounterState counterReducer(CounterState counterState, dynamic action) {
-  print(action);
-
   if (action is IncrementAction) {
     return changeCounterState[action.color](counterState, '+');
   } else if (action is DecrementAction) {
