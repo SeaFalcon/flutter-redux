@@ -24,16 +24,16 @@ void fetchPostsMiddleware(
     });
   }
 
-  if (action is FetchPostAction) {
-    final api = PostRepository();
+  // if (action is FetchPostAction) {
+  //   final api = PostRepository();
 
-    api.fetchPost(action.postId).then((Post post) {
-      store.dispatch(FetchPostSucceededAction(post: post));
-    }).catchError((error) {
-      print('error: $error');
-      store.dispatch(FetchPostFailedAction(error: error));
-    });
-  }
+  //   api.fetchPost(action.postId).then((Post post) {
+  //     store.dispatch(FetchPostSucceededAction(post: post));
+  //   }).catchError((error) {
+  //     print('error: $error');
+  //     store.dispatch(FetchPostFailedAction(error: error));
+  //   });
+  // }
 
   next(action);
 }

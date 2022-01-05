@@ -6,16 +6,20 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux_colors_numbers/MyHomePage.dart';
 import 'package:flutter_redux_colors_numbers/reducers/app_reducer.dart';
 import 'package:flutter_redux_colors_numbers/states/states.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 
 void main() {
-  final store = Store<AppState>(appReducer,
-      initialState: AppState(
-        colorState: ColorState(color: Colors.red.shade100),
-        counterState: CounterState(counter: 0),
-        postsState: PostsState.initial(),
-        postState: PostState.initial(),
-      ),
-      middleware: [fetchPostsMiddleware]);
+  final store = Store<AppState>(
+    appReducer,
+    initialState: AppState(
+      colorState: ColorState(color: Colors.red.shade100),
+      counterState: CounterState(counter: 0),
+      postsState: PostsState.initial(),
+      postState: PostState.initial(),
+    ),
+    // middleware: [fetchPostsMiddleware]);
+    middleware: [fetchPostsMiddleware, thunkMiddleware],
+  );
   runApp(MyApp(store: store));
 }
 

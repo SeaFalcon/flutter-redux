@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:flutter_redux_colors_numbers/actions/actions.dart';
+import 'package:flutter_redux_colors_numbers/models/post_model.dart';
 import 'package:flutter_redux_colors_numbers/states/states.dart';
 
 class PostPage extends StatelessWidget {
@@ -33,7 +34,7 @@ class PostPage extends StatelessWidget {
         backgroundColor: appBarColor,
       ),
       body: StoreConnector<AppState, _PostViewModel>(
-        onInit: (store) => store.dispatch(FetchPostAction(postId: postId)),
+        onInit: (store) => store.dispatch(fetchPostAndDispatch(postId)),
         converter: (store) => _PostViewModel(
           state: store.state.postState,
         ),
@@ -55,7 +56,7 @@ class PostPage extends StatelessWidget {
             });
           }
 
-          if (postVM.state.post.id == 0) {
+          if (postVM.state.post == Post.emptyPost()) {
             return Center(
               child: Text(
                 'No Post !',
@@ -86,11 +87,9 @@ class PostPage extends StatelessWidget {
                     children: [
                       DecoratedBox(
                         decoration: BoxDecoration(
-                            color: Colors.lightBlueAccent.shade100,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(
-                              width: .1,
-                            )),
+                          color: Colors.lightBlue.shade100,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 3, bottom: 3, left: 5, right: 5),

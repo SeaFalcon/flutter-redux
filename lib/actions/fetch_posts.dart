@@ -1,5 +1,9 @@
 import 'package:flutter_redux_colors_numbers/models/failure_model.dart';
 import 'package:flutter_redux_colors_numbers/models/post_model.dart';
+import 'package:flutter_redux_colors_numbers/repositories/post_repository.dart';
+import 'package:flutter_redux_colors_numbers/states/states.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 
 class FetchPostsAction {}
 
@@ -17,10 +21,24 @@ class FetchPostsFailedAction {
 
 //
 
-class FetchPostAction {
-  final int postId;
-  FetchPostAction({required this.postId});
+ThunkAction<AppState> fetchPostAndDispatch(int postId) {
+  return (Store<AppState> store) async {
+    print(store.runtimeType);
+    print('postId: $postId');
+
+    store.dispatch(FetchPostAction());
+
+    try {
+      final Post post = await PostRepository().fetchPost(postId);
+
+      store.dispatch(FetchPostSucceededAction(post: post));
+    } on Failure catch (err) {
+      store.dispatch(FetchPostFailedAction(error: err));
+    }
+  };
 }
+
+class FetchPostAction {}
 
 class FetchPostSucceededAction {
   final Post post;
