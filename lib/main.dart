@@ -13,6 +13,7 @@ void main() {
         colorState: ColorState(color: Colors.red.shade100),
         counterState: CounterState(counter: 0),
         postsState: PostsState.initial(),
+        postState: PostState.initial(),
       ),
       middleware: [fetchPostsMiddleware]);
   runApp(MyApp(store: store));

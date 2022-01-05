@@ -1,3 +1,4 @@
+import 'package:flutter_redux_colors_numbers/reducers/post_reducer.dart';
 import 'package:flutter_redux_colors_numbers/reducers/reducers.dart';
 import 'package:flutter_redux_colors_numbers/states/app_state.dart';
 
@@ -8,5 +9,6 @@ AppState appReducer(AppState state, action) {
     colorState: colorReducer(state.colorState, action),
     counterState: counterReducer(state.counterState, action),
     postsState: postsReducer(state.postsState, action),
+    postState: postReducer(state.postState, action),
   );
 }

@@ -14,3 +14,22 @@ class FetchPostsFailedAction {
 
   FetchPostsFailedAction({required this.error});
 }
+
+//
+
+class FetchPostAction {
+  final int postId;
+  FetchPostAction({required this.postId});
+}
+
+class FetchPostSucceededAction {
+  final Post post;
+
+  FetchPostSucceededAction({required this.post});
+}
+
+class FetchPostFailedAction {
+  final Failure error;
+
+  FetchPostFailedAction({required this.error});
+}

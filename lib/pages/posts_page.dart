@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:flutter_redux_colors_numbers/actions/actions.dart';
+import 'package:flutter_redux_colors_numbers/pages/post_page.dart';
 import 'package:flutter_redux_colors_numbers/states/states.dart';
 
 class PostsPage extends StatelessWidget {
@@ -16,15 +17,26 @@ class PostsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Posts'),
+        title: TextButton(
+          child: Text(
+            'Posts',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+          onPressed: () {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
+        ),
         backgroundColor: appBarColor,
       ),
-      body: StoreConnector<AppState, _PostViewModel>(
+      body: StoreConnector<AppState, _PostsViewModel>(
         onInit: (store) => store.dispatch(FetchPostsAction()),
-        converter: (store) => _PostViewModel(
+        converter: (store) => _PostsViewModel(
           state: store.state.postsState,
         ),
-        builder: (BuildContext context, _PostViewModel postsVM) {
+        builder: (BuildContext context, _PostsViewModel postsVM) {
           if (postsVM.state.status == PostsStatus.loading) {
             return Center(
               child: CircularProgressIndicator(),
@@ -54,7 +66,18 @@ class PostsPage extends StatelessWidget {
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) => Card(
               child: ListTile(
-                onTap: () {},
+                onTap: () {
+                  print(postsVM.state.posts[index]);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PostPage(
+                        appBarColor: appBarColor,
+                        postId: postsVM.state.posts[index].id,
+                      ),
+                    ),
+                  );
+                },
                 title: Text(postsVM.state.posts[index].title),
               ),
             ),
@@ -65,10 +88,10 @@ class PostsPage extends StatelessWidget {
   }
 }
 
-class _PostViewModel {
+class _PostsViewModel {
   final PostsState state;
 
-  _PostViewModel({
+  _PostsViewModel({
     required this.state,
   });
 }
